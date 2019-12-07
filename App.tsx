@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
+  const [text, setText] = useState<string>('');
+
   return (
     <View style={styles.container}>
       <View style={styles.inputArea}>
-        <TextInput placeholder="Course goal..." style={styles.textInput} />
-        <Button title="add" onPress={null} />
+        <TextInput
+          placeholder="Course goal..."
+          style={styles.textInput}
+          value={text}
+          onChangeText={setText}
+        />
+        <Button
+          title="add"
+          onPress={() => {
+            console.warn(`Goal is: "${text}"`);
+          }}
+        />
       </View>
       <View>
         <Text>Content</Text>
