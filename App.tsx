@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 export default function App() {
-  const [text, setText] = useState<string>('');
+  const [courseGoal, setCourseGoalText] = useState<string>('');
+  const [courseGoals, setCourseGoals] = useState<string[]>([]);
+
+  const handleAddGoal = () => {
+    setCourseGoals(currentCourseGoals => [...currentCourseGoals, courseGoal]);
+    setCourseGoalText('');
+  };
 
   return (
     <View style={styles.container}>
@@ -10,18 +16,22 @@ export default function App() {
         <TextInput
           placeholder="Course goal..."
           style={styles.textInput}
-          value={text}
-          onChangeText={setText}
+          value={courseGoal}
+          onChangeText={setCourseGoalText}
         />
         <Button
           title="add"
           onPress={() => {
-            console.warn(`Goal is: "${text}"`);
+            console.warn(`Goal is: "${courseGoal}"`);
+            handleAddGoal();
           }}
         />
       </View>
       <View>
-        <Text>Content</Text>
+        <Text>Goals: {courseGoals.length}</Text>
+        {courseGoals.map(goal => (
+          <Text key={goal}>{goal}</Text>
+        ))}
       </View>
     </View>
   );
