@@ -4,32 +4,35 @@ import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
 import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
-class ListItem {
+class GoalListItem {
   static itemCount: number = 0;
-  public key: string = `${ListItem.itemCount++}`;
+  public key: string = `${GoalListItem.itemCount++}`;
   constructor(public title: string) {}
 }
 
-const initialItems: ListItem[] = [
-  new ListItem('Learn React Native'),
-  new ListItem('do the dishes'),
+const initialItems: GoalListItem[] = [
+  new GoalListItem('Learn React Native'),
+  new GoalListItem('do the dishes'),
 ];
 
 export default function App() {
-  const [courseGoals, setCourseGoals] = useState<ListItem[]>(initialItems);
+  const [courseGoals, setCourseGoals] = useState<GoalListItem[]>(initialItems);
 
   const handleAddGoal = (courseGoal: string) => {
     setCourseGoals(currentCourseGoals => [
       ...currentCourseGoals,
-      new ListItem(courseGoal),
+      new GoalListItem(courseGoal),
     ]);
   };
 
-  const handleRemoveGoal = (key: string) => {
-    const goalsFiltered = courseGoals.filter(
-      (goal: ListItem) => goal.key !== key
-    );
-    setCourseGoals(goalsFiltered);
+  const handleRemoveGoal = (itemToRemoveKey: string) => {
+    setCourseGoals((courseGoals: GoalListItem[]) => {
+      const goalsFiltered = courseGoals.filter(
+        (goal: GoalListItem) => goal.key !== itemToRemoveKey
+      );
+
+      return goalsFiltered;
+    });
   };
 
   return (
