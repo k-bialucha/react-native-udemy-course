@@ -9,6 +9,7 @@ import {
   FlatList,
 } from 'react-native';
 
+import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
 
 class ListItem {
@@ -36,21 +37,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputArea}>
-        <TextInput
-          placeholder="Course goal..."
-          style={styles.textInput}
-          value={courseGoal}
-          onChangeText={setCourseGoalText}
-        />
-        <Button
-          title="add"
-          onPress={() => {
-            console.warn(`Goal is: "${courseGoal}"`);
-            handleAddGoal();
-          }}
-        />
-      </View>
+      <GoalInput
+        goal={courseGoal}
+        onGoalChange={setCourseGoalText}
+        onAddGoal={handleAddGoal}
+      />
       <ScrollView>
         <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
         <FlatList
@@ -64,18 +55,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: { padding: 30 },
-  inputArea: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  textInput: {
-    borderColor: '#bbb',
-    borderWidth: 2,
-    padding: 5,
-    flexBasis: '70%',
-  },
   goalsHeaderText: {
     fontSize: 32,
     fontWeight: '600',
