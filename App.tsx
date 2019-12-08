@@ -6,14 +6,29 @@ import {
   Text,
   TextInput,
   View,
+  FlatList,
 } from 'react-native';
+
+class ListItem {
+  static itemCount: number = 0;
+  public key: string = `${ListItem.itemCount++}`;
+  constructor(public title: string) {}
+}
+
+const initialItems: ListItem[] = [
+  new ListItem('Learn React Native'),
+  new ListItem('do the dishes'),
+];
 
 export default function App() {
   const [courseGoal, setCourseGoalText] = useState<string>('');
-  const [courseGoals, setCourseGoals] = useState<string[]>([]);
+  const [courseGoals, setCourseGoals] = useState<ListItem[]>(initialItems);
 
   const handleAddGoal = () => {
-    setCourseGoals(currentCourseGoals => [...currentCourseGoals, courseGoal]);
+    setCourseGoals(currentCourseGoals => [
+      ...currentCourseGoals,
+      new ListItem(courseGoal),
+    ]);
     setCourseGoalText('');
   };
 
@@ -36,11 +51,14 @@ export default function App() {
       </View>
       <ScrollView>
         <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
-        {courseGoals.map(goal => (
-          <View key={goal} style={styles.listItem}>
-            <Text style={styles.listItemText}>{goal}</Text>
-          </View>
-        ))}
+        <FlatList
+          data={courseGoals}
+          renderItem={item => (
+            <View style={styles.listItem}>
+              <Text style={styles.listItemText}>{item.item.title}</Text>
+            </View>
+          )}
+        />
       </ScrollView>
     </View>
   );
