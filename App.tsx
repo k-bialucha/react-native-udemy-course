@@ -25,6 +25,13 @@ export default function App() {
     ]);
   };
 
+  const handleRemoveGoal = (key: string) => {
+    const goalsFiltered = courseGoals.filter(
+      (goal: ListItem) => goal.key !== key
+    );
+    setCourseGoals(goalsFiltered);
+  };
+
   return (
     <View style={styles.container}>
       <GoalInput onAddGoal={handleAddGoal} />
@@ -32,7 +39,12 @@ export default function App() {
         <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
         <FlatList
           data={courseGoals}
-          renderItem={itemData => <GoalItem title={itemData.item.title} />}
+          renderItem={itemData => (
+            <GoalItem
+              onDeleteItem={() => handleRemoveGoal(itemData.item.key)}
+              title={itemData.item.title}
+            />
+          )}
         />
       </ScrollView>
     </View>

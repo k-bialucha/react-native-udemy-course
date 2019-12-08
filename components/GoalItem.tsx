@@ -1,15 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 interface Props {
   title: string;
+  onDeleteItem: (...args: any[]) => any;
 }
 
-const GoalItem: React.FC<Props> = ({ title }) => {
+const GoalItem: React.FC<Props> = ({ title, onDeleteItem }) => {
   return (
-    <View style={styles.listItem}>
-      <Text style={styles.listItemText}>{title}</Text>
-    </View>
+    <TouchableOpacity
+      onLongPress={onDeleteItem}
+      delayLongPress={1200}
+      activeOpacity={0.5}
+    >
+      <View style={styles.listItem}>
+        <Text style={styles.listItemText}>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
