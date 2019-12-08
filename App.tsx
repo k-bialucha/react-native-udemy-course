@@ -28,9 +28,11 @@ export default function App() {
         />
       </View>
       <View>
-        <Text>Goals: {courseGoals.length}</Text>
+        <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
         {courseGoals.map(goal => (
-          <Text key={goal}>{goal}</Text>
+          <View key={goal} style={styles.listItem}>
+            <Text style={styles.listItemText}>{goal}</Text>
+          </View>
         ))}
       </View>
     </View>
@@ -50,5 +52,22 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 5,
     flexBasis: '70%',
+  },
+  goalsHeaderText: {
+    fontSize: 32,
+    fontWeight: '600',
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    color: '#844',
+  },
+  listItem: {
+    borderBottomColor: '#aab',
+    borderBottomWidth: 2,
+    marginTop: 5,
+    marginBottom: 10,
+    padding: 5,
+  },
+  listItemText: {
+    fontSize: 24,
   },
 });
