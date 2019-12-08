@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 export default function App() {
   const [courseGoal, setCourseGoalText] = useState<string>('');
@@ -27,14 +34,14 @@ export default function App() {
           }}
         />
       </View>
-      <View>
+      <ScrollView>
         <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
         {courseGoals.map(goal => (
           <View key={goal} style={styles.listItem}>
             <Text style={styles.listItemText}>{goal}</Text>
           </View>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 }
