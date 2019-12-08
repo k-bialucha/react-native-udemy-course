@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  FlatList,
-} from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
 
 import GoalInput from './components/GoalInput';
 import GoalItem from './components/GoalItem';
@@ -24,24 +16,18 @@ const initialItems: ListItem[] = [
 ];
 
 export default function App() {
-  const [courseGoal, setCourseGoalText] = useState<string>('');
   const [courseGoals, setCourseGoals] = useState<ListItem[]>(initialItems);
 
-  const handleAddGoal = () => {
+  const handleAddGoal = (courseGoal: string) => {
     setCourseGoals(currentCourseGoals => [
       ...currentCourseGoals,
       new ListItem(courseGoal),
     ]);
-    setCourseGoalText('');
   };
 
   return (
     <View style={styles.container}>
-      <GoalInput
-        goal={courseGoal}
-        onGoalChange={setCourseGoalText}
-        onAddGoal={handleAddGoal}
-      />
+      <GoalInput onAddGoal={handleAddGoal} />
       <ScrollView>
         <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
         <FlatList

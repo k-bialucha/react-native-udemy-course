@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
 
 interface Props {
-  goal: string;
-  onGoalChange: (goal: string) => any;
-  onAddGoal: () => any;
+  onAddGoal: (newGoal: string) => void;
 }
 
-const GoalInput: React.FC<Props> = ({ goal, onGoalChange, onAddGoal }) => {
+const GoalInput: React.FC<Props> = ({ onAddGoal }) => {
+  const [courseGoal, setCourseGoalText] = useState<string>('');
+
   return (
     <View style={styles.inputArea}>
       <TextInput
         placeholder="Course goal..."
         style={styles.textInput}
-        value={goal}
-        onChangeText={onGoalChange}
+        value={courseGoal}
+        onChangeText={setCourseGoalText}
       />
-      <Button title="add" onPress={onAddGoal} />
+      <Button title="add" onPress={() => onAddGoal(courseGoal)} />
     </View>
   );
 };
