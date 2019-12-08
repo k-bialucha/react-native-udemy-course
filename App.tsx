@@ -9,6 +9,8 @@ import {
   FlatList,
 } from 'react-native';
 
+import GoalItem from './components/GoalItem';
+
 class ListItem {
   static itemCount: number = 0;
   public key: string = `${ListItem.itemCount++}`;
@@ -53,11 +55,7 @@ export default function App() {
         <Text style={styles.goalsHeaderText}>Goals: {courseGoals.length}</Text>
         <FlatList
           data={courseGoals}
-          renderItem={item => (
-            <View style={styles.listItem}>
-              <Text style={styles.listItemText}>{item.item.title}</Text>
-            </View>
-          )}
+          renderItem={itemData => <GoalItem title={itemData.item.title} />}
         />
       </ScrollView>
     </View>
@@ -84,15 +82,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 3,
     color: '#844',
-  },
-  listItem: {
-    borderBottomColor: '#aab',
-    borderBottomWidth: 2,
-    marginTop: 5,
-    marginBottom: 10,
-    padding: 5,
-  },
-  listItemText: {
-    fontSize: 24,
   },
 });
