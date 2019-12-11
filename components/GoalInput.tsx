@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Button, Modal, StyleSheet, TextInput, View } from 'react-native';
 
 interface Props {
   onAddGoal: (newGoal: string) => void;
@@ -7,16 +7,34 @@ interface Props {
 
 const GoalInput: React.FC<Props> = ({ onAddGoal }) => {
   const [courseGoal, setCourseGoalText] = useState<string>('');
+  const [isAddModeEnabled, setIsAddModeEnabled] = useState<boolean>(false);
 
   return (
     <View style={styles.inputArea}>
-      <TextInput
-        placeholder="Course goal..."
-        style={styles.textInput}
-        value={courseGoal}
-        onChangeText={setCourseGoalText}
-      />
-      <Button title="add" onPress={() => onAddGoal(courseGoal)} />
+      <Modal visible={isAddModeEnabled} animationType="slide">
+        <TextInput
+          placeholder="Course goal..."
+          style={styles.textInput}
+          value={courseGoal}
+          onChangeText={setCourseGoalText}
+        />
+        <Button
+          title="add"
+          onPress={() => {
+            onAddGoal(courseGoal);
+            setCourseGoalText('');
+            setIsAddModeEnabled(false);
+          }}
+        />
+        <Button
+          title="close"
+          onPress={() => {
+            setCourseGoalText('');
+            setIsAddModeEnabled(false);
+          }}
+        />
+      </Modal>
+      <Button title="new" onPress={() => setIsAddModeEnabled(true)} />
     </View>
   );
 };
