@@ -32,7 +32,19 @@ const styles = StyleSheet.create({
   card: {
     width: 300,
     maxWidth: "80%",
-    alignItems: "center"
+    alignItems: "center",
+    shadowColor: "black",
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginTop: 20,
+    // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    shadowOpacity: 0.26,
+    // Android elevation
+    elevation: 10
   },
   buttonContainer: {
     flexDirection: "row",
