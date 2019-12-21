@@ -1,5 +1,7 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from "react";
+import { Text, View, StyleSheet } from "react-native";
+
+import AppTheme from "../AppTheme";
 
 interface Props {
   title: string;
@@ -15,19 +17,19 @@ const Header: React.FC<Props> = ({ title }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
     height: 80,
     paddingTop: 30,
     paddingBottom: 5,
     paddingHorizontal: 10,
 
-    backgroundColor: 'dodgerblue',
-    justifyContent: 'flex-end',
+    backgroundColor: AppTheme.primary,
+    justifyContent: "flex-end"
   },
   title: {
-    color: 'white',
-    fontSize: 32,
-  },
+    color: "white",
+    fontSize: 32
+  }
 });
 
 export default Header;

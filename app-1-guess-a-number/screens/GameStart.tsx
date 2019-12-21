@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
 import Card from "../components/Card";
 
+import AppTheme from "../AppTheme";
+
 const GameStart: React.FC<{}> = () => {
   return (
     <View style={styles.screen}>
@@ -12,10 +14,14 @@ const GameStart: React.FC<{}> = () => {
         <TextInput />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="Reset" onPress={() => {}} />
+            <Button title="Reset" onPress={() => {}} color={AppTheme.accent} />
           </View>
           <View style={styles.button}>
-            <Button title="Confirm" onPress={() => {}} />
+            <Button
+              title="Confirm"
+              onPress={() => {}}
+              color={AppTheme.primary}
+            />
           </View>
         </View>
       </Card>
@@ -32,7 +38,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     marginVertical: 10,
-    color: "dodgerblue",
+    color: AppTheme.primary,
     fontWeight: "600"
   },
   card: {
