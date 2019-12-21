@@ -11,8 +11,12 @@ const GameStart: React.FC<{}> = () => {
         <Text style={styles.title}>Select a Number</Text>
         <TextInput />
         <View style={styles.buttonContainer}>
-          <Button title="Reset" onPress={() => {}} />
-          <Button title="Confirm" onPress={() => {}} />
+          <View style={styles.button}>
+            <Button title="Reset" onPress={() => {}} />
+          </View>
+          <View style={styles.button}>
+            <Button title="Confirm" onPress={() => {}} />
+          </View>
         </View>
       </Card>
     </View>
@@ -39,8 +43,12 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between",
-    paddingHorizontal: 30
+    justifyContent: "space-between"
+  },
+  button: {
+    flexGrow: 1,
+    width: "40%",
+    marginHorizontal: 10
   }
 });
 
