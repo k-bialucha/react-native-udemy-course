@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 import Card from "../components/Card";
 import Input from "../components/Input";
@@ -7,13 +7,21 @@ import Input from "../components/Input";
 import AppTheme from "../AppTheme";
 
 const GameStart: React.FC<{}> = () => {
+  const [number, setNumber] = useState<string>("");
+
+  const handleNumberChange = (inputValue: string) => {
+    const inputSanitized: string = inputValue.replace(/[^0-9]/, "");
+    setNumber(inputSanitized);
+  };
+
   return (
     <View style={styles.screen}>
       <Text>Start a New Game</Text>
       <Card style={styles.card}>
         <Text style={styles.title}>Select a Number</Text>
         <Input
-          value="99"
+          value={number}
+          onChangeText={handleNumberChange}
           style={styles.input}
           autoCorrect={false}
           keyboardType="number-pad"
