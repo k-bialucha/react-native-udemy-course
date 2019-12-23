@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Button,
   Keyboard,
   StyleSheet,
@@ -32,11 +33,15 @@ const GameStart: React.FC<{}> = () => {
     const numberParsed: number = parseInt(inputValue);
 
     const isNumberValid: boolean =
-      numberParsed !== NaN && numberParsed >= 1 && numberParsed <= 99;
+      !Number.isNaN(numberParsed) && numberParsed >= 1 && numberParsed <= 99;
 
     if (!isNumberValid) {
       setInputValue("");
-      alert("Input invalid!");
+      Alert.alert(
+        "Input invalid",
+        "You must provide a number between 1 and 99.",
+        [{ text: "Got it!", style: "destructive" }]
+      );
       return;
     }
 
