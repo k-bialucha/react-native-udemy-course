@@ -14,11 +14,35 @@ import Input from "../components/Input";
 import AppTheme from "../AppTheme";
 
 const GameStart: React.FC<{}> = () => {
-  const [number, setNumber] = useState<string>("7");
+  const [inputValue, setInputValue] = useState<string>("7");
+  const [number, setNumber] = useState<number>(null);
+  const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
 
   const handleNumberChange = (inputValue: string) => {
     const inputSanitized: string = inputValue.replace(/[^0-9]/, "");
-    setNumber(inputSanitized);
+    setInputValue(inputSanitized);
+  };
+
+  const handleNumberReset = () => {
+    setInputValue("");
+    setIsConfirmed(false);
+  };
+
+  const handleConfirmation = () => {
+    const numberParsed: number = parseInt(inputValue);
+
+    const isNumberValid: boolean =
+      numberParsed !== NaN && numberParsed >= 1 && numberParsed <= 99;
+
+    if (!isNumberValid) {
+      setInputValue("");
+      alert("Input invalid!");
+      return;
+    }
+
+    setNumber(numberParsed);
+    setIsConfirmed(true);
+    setInputValue("");
   };
 
   return (
@@ -32,7 +56,7 @@ const GameStart: React.FC<{}> = () => {
         <Card style={styles.card}>
           <Text style={styles.title}>Select a Number</Text>
           <Input
-            value={number}
+            value={inputValue}
             onChangeText={handleNumberChange}
             style={styles.input}
             autoCorrect={false}
@@ -44,19 +68,24 @@ const GameStart: React.FC<{}> = () => {
             <View style={styles.button}>
               <Button
                 title="Reset"
-                onPress={() => {}}
+                onPress={handleNumberReset}
                 color={AppTheme.accent}
               />
             </View>
             <View style={styles.button}>
               <Button
                 title="Confirm"
-                onPress={() => {}}
+                onPress={handleConfirmation}
                 color={AppTheme.primary}
               />
             </View>
           </View>
         </Card>
+        {isConfirmed && (
+          <Card>
+            <Text style={styles.title}>Chosen number: {number}</Text>
+          </Card>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );
