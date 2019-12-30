@@ -11,6 +11,7 @@ import {
 
 import Card from "../components/Card";
 import Input from "../components/Input";
+import NumberContainer from "../components/NumberContainer";
 
 import AppTheme from "../AppTheme";
 
@@ -48,6 +49,7 @@ const GameStart: React.FC<{}> = () => {
     setNumber(numberParsed);
     setIsConfirmed(true);
     setInputValue("");
+    Keyboard.dismiss();
   };
 
   return (
@@ -87,8 +89,9 @@ const GameStart: React.FC<{}> = () => {
           </View>
         </Card>
         {isConfirmed && (
-          <Card>
-            <Text style={styles.title}>Chosen number: {number}</Text>
+          <Card style={styles.summaryContainer}>
+            <Text style={styles.title}>Chosen number:</Text>
+            <NumberContainer number={number}></NumberContainer>
           </Card>
         )}
       </View>
@@ -127,6 +130,10 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     width: "40%",
     marginHorizontal: 10
+  },
+  summaryContainer: {
+    marginVertical: 20,
+    alignItems: "center"
   }
 });
 
