@@ -15,7 +15,11 @@ import NumberContainer from "../components/NumberContainer";
 
 import AppTheme from "../AppTheme";
 
-const GameStart: React.FC<{}> = () => {
+interface Props {
+  onGameStart: (userChoice: number) => void;
+}
+
+const GameStart: React.FC<Props> = ({ onGameStart }) => {
   const [inputValue, setInputValue] = useState<string>("7");
   const [number, setNumber] = useState<number>(null);
   const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
@@ -50,6 +54,8 @@ const GameStart: React.FC<{}> = () => {
     setIsConfirmed(true);
     setInputValue("");
     Keyboard.dismiss();
+
+    onGameStart(numberParsed);
   };
 
   return (

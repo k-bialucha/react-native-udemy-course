@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import Header from "./components/Header";
+import Game from "./screens/Game";
 import GameStart from "./screens/GameStart";
+import Header from "./components/Header";
 
 export default function App() {
+  const [userChoice, setUserChoice] = useState<number>(null);
+
   return (
     <View style={styles.screen}>
       <Header title="Guess a Number" />
-      <GameStart />
+      {userChoice ? (
+        <Game userChoice={userChoice} />
+      ) : (
+        <GameStart onGameStart={setUserChoice} />
+      )}
     </View>
   );
 }
