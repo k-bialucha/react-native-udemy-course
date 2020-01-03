@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
-import AppTheme from "../AppTheme";
+import Card from "../components/Card";
+import NumberContainer from "../components/NumberContainer";
 
 interface Props {
   userChoice: number;
@@ -31,22 +32,39 @@ const GameScreen: React.FC<Props> = ({ userChoice }) => {
     generateRandomNumber(1, 100, [userChoice])
   );
   return (
-    <View style={styles.container}>
+    <View style={styles.screen}>
       <Text>Game Screen - my guess is</Text>
-      <View>
-        <Text style={styles.number}>{numberGuess}</Text>
-      </View>
+      <NumberContainer number={numberGuess} />
+      <Card style={styles.buttonsCard}>
+        <Button
+          title="lower"
+          onPress={() => {
+            setNumberGuess(generateRandomNumber(1, numberGuess, [userChoice]));
+          }}
+        />
+        <Button
+          title="greater"
+          onPress={() => {
+            setNumberGuess(
+              generateRandomNumber(numberGuess, 100, [userChoice])
+            );
+          }}
+        />
+      </Card>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 10
+  screen: {
+    flex: 1,
+    padding: 10,
+    alignItems: "center"
   },
-  number: {
-    fontSize: 36,
-    color: AppTheme.primary
+  buttonsCard: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    justifyContent: "space-around"
   }
 });
 
