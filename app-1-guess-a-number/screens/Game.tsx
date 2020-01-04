@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { Alert, Button, StyleSheet, Text, View } from "react-native";
 
 import Card from "../components/Card";
 import NumberContainer from "../components/NumberContainer";
@@ -28,9 +28,30 @@ const generateRandomNumber = (
 };
 
 const GameScreen: React.FC<Props> = ({ userChoice }) => {
-  const [numberGuess, setNumberGuess] = useState(
+  const [numberGuess, setNumberGuess] = useState<number>(
     generateRandomNumber(1, 100, [userChoice])
   );
+
+  const lowerBound = useRef<number>(1);
+  const upperBound = useRef<number>(100);
+
+  const updateGuess = () => {
+    const nextGuess: number = generateRandomNumber(
+      lowerBound.current,
+      upperBound.current,
+      [userChoice]
+    );
+    setNumberGuess(nextGuess);
+  };
+
+  const showFoolingAlert = () => {
+    Alert.alert(
+      "Disgusting behavior spotted!",
+      `You're trying to fool, I know you...`,
+      [{ text: "Sorry...", style: "cancel" }]
+    );
+  };
+
   return (
     <View style={styles.screen}>
       <Text>Game Screen - my guess is</Text>
@@ -39,15 +60,29 @@ const GameScreen: React.FC<Props> = ({ userChoice }) => {
         <Button
           title="lower"
           onPress={() => {
-            setNumberGuess(generateRandomNumber(1, numberGuess, [userChoice]));
+            const isUserTruthful: boolean = userChoice < numberGuess;
+
+            if (!isUserTruthful) {
+              showFoolingAlert();
+              return;
+            }
+
+            upperBound.current = numberGuess;
+            updateGuess();
           }}
         />
         <Button
           title="greater"
           onPress={() => {
-            setNumberGuess(
-              generateRandomNumber(numberGuess, 100, [userChoice])
-            );
+            const isUserTrustworthy: boolean = userChoice > numberGuess;
+
+            if (!isUserTrustworthy) {
+              showFoolingAlert();
+              return;
+            }
+
+            lowerBound.current = numberGuess;
+            updateGuess();
           }}
         />
       </Card>
