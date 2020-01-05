@@ -25,6 +25,11 @@ export default function App() {
     setGuessesCount(roundCount);
   };
 
+  const newGameHandler = () => {
+    setUserChoice(null);
+    setGuessesCount(null);
+  };
+
   let screen: Screen = Screen.GameStart;
 
   if (userChoice && !guessesCount) {
@@ -42,7 +47,13 @@ export default function App() {
       {screen === Screen.Game && (
         <Game userChoice={userChoice} onGameEnd={gameOverHandler} />
       )}
-      {screen === Screen.GameOver && <GameOverScreen />}
+      {screen === Screen.GameOver && (
+        <GameOverScreen
+          guessedNumber={userChoice}
+          guessesCount={guessesCount}
+          onNewGame={newGameHandler}
+        />
+      )}
     </View>
   );
 }
