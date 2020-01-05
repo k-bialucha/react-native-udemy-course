@@ -52,10 +52,8 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
 
     setNumber(numberParsed);
     setIsConfirmed(true);
-    setInputValue("");
-    Keyboard.dismiss();
 
-    onGameStart(numberParsed);
+    Keyboard.dismiss();
   };
 
   return (
@@ -98,6 +96,14 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
           <Card style={styles.summaryContainer}>
             <Text style={styles.title}>Chosen number:</Text>
             <NumberContainer number={number}></NumberContainer>
+            <View style={styles.startGameButtonContainer}>
+              <Button
+                title="start game"
+                onPress={() => {
+                  onGameStart(number);
+                }}
+              />
+            </View>
           </Card>
         )}
       </View>
@@ -140,6 +146,9 @@ const styles = StyleSheet.create({
   summaryContainer: {
     marginVertical: 20,
     alignItems: "center"
+  },
+  startGameButtonContainer: {
+    marginVertical: 10
   }
 });
 
