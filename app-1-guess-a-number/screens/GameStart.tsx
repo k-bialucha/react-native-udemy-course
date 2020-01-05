@@ -20,7 +20,11 @@ interface Props {
 }
 
 const GameStart: React.FC<Props> = ({ onGameStart }) => {
-  const [inputValue, setInputValue] = useState<string>("7");
+  const randomInitialNumber: number = Math.floor(Math.random() * 100 + 1);
+
+  const [inputValue, setInputValue] = useState<string>(
+    `${randomInitialNumber}`
+  );
   const [number, setNumber] = useState<number>(null);
   const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
 
