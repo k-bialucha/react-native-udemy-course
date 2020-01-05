@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, Button, StyleSheet, Text, View } from "react-native";
 
 import Card from "../components/Card";
@@ -6,6 +6,7 @@ import NumberContainer from "../components/NumberContainer";
 
 interface Props {
   userChoice: number;
+  onGameEnd: (roundCount: number, ...args: number[]) => void;
 }
 
 const generateRandomNumber = (
@@ -27,10 +28,11 @@ const generateRandomNumber = (
   return generatedNumber;
 };
 
-const GameScreen: React.FC<Props> = ({ userChoice }) => {
+const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
   const [numberGuess, setNumberGuess] = useState<number>(
     generateRandomNumber(1, 100, [userChoice])
   );
+  const [guessesCount, setGuessesCount] = useState(1);
 
   const lowerBound = useRef<number>(1);
   const upperBound = useRef<number>(100);
@@ -39,10 +41,17 @@ const GameScreen: React.FC<Props> = ({ userChoice }) => {
     const nextGuess: number = generateRandomNumber(
       lowerBound.current,
       upperBound.current,
-      [userChoice]
+      []
     );
+    setGuessesCount(guessesCount => guessesCount + 1);
     setNumberGuess(nextGuess);
   };
+
+  useEffect(() => {
+    if (numberGuess === userChoice) {
+      onGameEnd(guessesCount);
+    }
+  }, [userChoice, numberGuess, onGameEnd]);
 
   const showFoolingAlert = () => {
     Alert.alert(
@@ -56,6 +65,9 @@ const GameScreen: React.FC<Props> = ({ userChoice }) => {
     <View style={styles.screen}>
       <Text>Game Screen - my guess is</Text>
       <NumberContainer number={numberGuess} />
+      <View>
+        <Text>Guesses: {guessesCount}</Text>
+      </View>
       <Card style={styles.buttonsCard}>
         <Button
           title="lower"
