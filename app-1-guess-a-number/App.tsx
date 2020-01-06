@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
+
 import Game from "./screens/Game";
 import GameOverScreen from "./screens/GameOver";
 import GameStart from "./screens/GameStart";
 import Header from "./components/Header";
+
+const fetchFont = () => {
+  return Font.loadAsync({
+    poppins: require("./assets/fonts/Poppins-Regular.ttf"),
+    "poppins-bold": require("./assets/fonts/Poppins-Bold.ttf")
+  });
+};
 
 enum Screen {
   GameStart,
@@ -13,8 +23,23 @@ enum Screen {
 }
 
 export default function App() {
+  const [initialLoadingDone, setInitialLoadingDone] = useState<boolean>(false);
   const [userChoice, setUserChoice] = useState<number>(null);
   const [guessesCount, setGuessesCount] = useState<number>(null);
+
+  if (!initialLoadingDone) {
+    return (
+      <AppLoading
+        startAsync={fetchFont}
+        onFinish={() => {
+          setInitialLoadingDone(true);
+        }}
+        onError={(err: Error) => {
+          console.warn("someting failed!");
+        }}
+      />
+    );
+  }
 
   const gameStartHandler = (userChoice: number) => {
     setUserChoice(userChoice);

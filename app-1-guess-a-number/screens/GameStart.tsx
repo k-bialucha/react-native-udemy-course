@@ -122,10 +122,11 @@ const styles = StyleSheet.create({
     padding: 10
   },
   title: {
-    fontSize: 30,
+    fontSize: 26,
     marginVertical: 10,
     color: AppTheme.primary,
-    fontWeight: "600"
+    fontWeight: "600",
+    fontFamily: "poppins-bold"
   },
   card: {
     width: 300,
