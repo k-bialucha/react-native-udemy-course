@@ -1,6 +1,8 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { Button, View } from "react-native";
 
+import AppText from "../components/AppText";
+import AppTitle from "../components/AppTitle";
 import Card from "../components/Card";
 
 interface Props {
@@ -18,9 +20,9 @@ const GameOverScreen: React.FC<Props> = ({
     <View>
       <Card>
         <View>
-          <Text>Game is over</Text>
-          <Text>Your number was {guessedNumber}.</Text>
-          <Text>It took {guessesCount} rounds to guess.</Text>
+          <AppTitle>Game is over</AppTitle>
+          <AppText>Your number was {guessedNumber}.</AppText>
+          <AppText>It took {guessesCount} rounds to guess.</AppText>
           <Button title="new game" onPress={onNewGame} />
         </View>
       </Card>
