@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../components/AppText";
 import AppTitle, { AppTitleSize } from "../components/AppTitle";
@@ -73,7 +74,6 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
       </View>
       <Card style={styles.buttonsCard}>
         <MainButton
-          title="lower"
           onPress={() => {
             const isUserTruthful: boolean = userChoice < numberGuess;
 
@@ -85,9 +85,10 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
             upperBound.current = numberGuess;
             updateGuess();
           }}
-        />
+        >
+          <Ionicons name="md-arrow-round-down" size={24} color="white" />
+        </MainButton>
         <MainButton
-          title="greater"
           onPress={() => {
             const isUserTrustworthy: boolean = userChoice > numberGuess;
 
@@ -99,7 +100,9 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
             lowerBound.current = numberGuess;
             updateGuess();
           }}
-        />
+        >
+          <Ionicons name="md-arrow-round-up" size={24} color="white" />
+        </MainButton>
       </Card>
     </View>
   );

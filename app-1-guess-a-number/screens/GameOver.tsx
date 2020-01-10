@@ -45,7 +45,7 @@ const GameOverScreen: React.FC<Props> = ({
             rounds to guess.
           </AppText>
           <View style={styles.buttonContainer}>
-            <MainButton title="new game" onPress={onNewGame} />
+            <MainButton onPress={onNewGame}>new game</MainButton>
           </View>
         </View>
       </Card>

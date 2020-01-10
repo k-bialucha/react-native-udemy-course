@@ -105,11 +105,12 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
             <NumberContainer number={number}></NumberContainer>
             <View style={styles.startGameButtonContainer}>
               <MainButton
-                title="start game"
                 onPress={() => {
                   onGameStart(number);
                 }}
-              />
+              >
+                start game
+              </MainButton>
             </View>
           </Card>
         )}

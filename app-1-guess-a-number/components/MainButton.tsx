@@ -6,15 +6,14 @@ import AppText from "./AppText";
 import AppTheme from "../AppTheme";
 
 interface Props {
-  title: string;
   onPress: (...args: any[]) => any;
 }
 
-const MainButton: React.FC<Props> = ({ title, onPress }) => {
+const MainButton: React.FC<Props> = ({ children, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.button}>
-        <AppText style={styles.buttonText}>{title}</AppText>
+        <AppText style={styles.buttonText}>{children}</AppText>
       </View>
     </TouchableOpacity>
   );
