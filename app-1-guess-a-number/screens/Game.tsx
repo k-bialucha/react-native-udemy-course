@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 
+import AppText from "../components/AppText";
+import AppTitle, { AppTitleSize } from "../components/AppTitle";
 import Card from "../components/Card";
+import MainButton from "../components/MainButton";
 import NumberContainer from "../components/NumberContainer";
 
 interface Props {
@@ -63,13 +66,13 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
 
   return (
     <View style={styles.screen}>
-      <Text>Game Screen - my guess is</Text>
+      <AppTitle size={AppTitleSize.Small}>My guess is:</AppTitle>
       <NumberContainer number={numberGuess} />
       <View>
-        <Text>Guesses: {guessesCount}</Text>
+        <AppText>Guesses: {guessesCount}</AppText>
       </View>
       <Card style={styles.buttonsCard}>
-        <Button
+        <MainButton
           title="lower"
           onPress={() => {
             const isUserTruthful: boolean = userChoice < numberGuess;
@@ -83,7 +86,7 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
             updateGuess();
           }}
         />
-        <Button
+        <MainButton
           title="greater"
           onPress={() => {
             const isUserTrustworthy: boolean = userChoice > numberGuess;
