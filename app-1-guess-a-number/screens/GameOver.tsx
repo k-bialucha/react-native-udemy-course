@@ -26,7 +26,12 @@ const GameOverScreen: React.FC<Props> = ({
           <View style={styles.imageContainer}>
             <Image
               resizeMode="cover"
-              source={require("../assets/success.png")}
+              // source={require("../assets/success.png")}
+              source={{
+                uri:
+                  "https://www.lirent.net/wp-content/uploads/2014/10/Android-Lollipop-wallpapers-p.png"
+              }}
+              fadeDuration={600}
               style={styles.image}
             />
           </View>
