@@ -4,6 +4,7 @@ import { Button, Image, StyleSheet, Text, View } from "react-native";
 import AppText from "../components/AppText";
 import AppTitle from "../components/AppTitle";
 import Card from "../components/Card";
+import MainButton from "../components/MainButton";
 
 import AppTheme from "../AppTheme";
 
@@ -43,7 +44,9 @@ const GameOverScreen: React.FC<Props> = ({
             It took <Text style={styles.highlightedText}>{guessesCount}</Text>{" "}
             rounds to guess.
           </AppText>
-          <Button title="new game" onPress={onNewGame} />
+          <View style={styles.buttonContainer}>
+            <MainButton title="new game" onPress={onNewGame} />
+          </View>
         </View>
       </Card>
     </View>
@@ -79,6 +82,10 @@ const styles = StyleSheet.create({
   highlightedText: {
     color: AppTheme.accent,
     fontFamily: "poppins-bold"
+  },
+  buttonContainer: {
+    width: "60%",
+    alignSelf: "center"
   }
 });
 

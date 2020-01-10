@@ -10,9 +10,10 @@ import {
 } from "react-native";
 
 import AppText from "../components/AppText";
-import AppTitle, { AppTitleSize } from "../components/AppTitle";
+import AppTitle from "../components/AppTitle";
 import Card from "../components/Card";
 import Input from "../components/Input";
+import MainButton from "../components/MainButton";
 import NumberContainer from "../components/NumberContainer";
 
 import AppTheme from "../AppTheme";
@@ -103,7 +104,7 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
             <Text style={styles.title}>Chosen number:</Text>
             <NumberContainer number={number}></NumberContainer>
             <View style={styles.startGameButtonContainer}>
-              <Button
+              <MainButton
                 title="start game"
                 onPress={() => {
                   onGameStart(number);
