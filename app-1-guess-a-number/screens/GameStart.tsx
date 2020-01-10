@@ -9,6 +9,8 @@ import {
   View
 } from "react-native";
 
+import AppText from "../components/AppText";
+import AppTitle, { AppTitleSize } from "../components/AppTitle";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
@@ -67,9 +69,9 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
       }}
     >
       <View style={styles.screen}>
-        <Text>Start a New Game</Text>
+        <AppText>Start a New Game</AppText>
         <Card style={styles.card}>
-          <Text style={styles.title}>Select a Number</Text>
+          <AppTitle style={styles.title}>Select a Number</AppTitle>
           <Input
             value={inputValue}
             onChangeText={handleNumberChange}
@@ -122,11 +124,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   title: {
-    fontSize: 26,
-    marginVertical: 10,
-    color: AppTheme.primary,
-    fontWeight: "600",
-    fontFamily: "poppins-bold"
+    marginVertical: 10
   },
   card: {
     width: 300,
