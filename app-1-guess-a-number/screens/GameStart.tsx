@@ -127,7 +127,8 @@ const styles = StyleSheet.create({
     padding: Dimensions.get("window").width > 400 ? 10 : 2
   },
   title: {
-    marginVertical: 10
+    marginVertical: Dimensions.get("window").height > 600 ? 10 : 3,
+    fontSize: Math.floor(Dimensions.get("window").height / 22)
   },
   card: {
     minWidth: 240,

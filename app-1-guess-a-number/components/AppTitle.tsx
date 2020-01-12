@@ -21,7 +21,11 @@ const AppTitle: React.FC<Props> = ({
   children
 }) => {
   return (
-    <Text style={{ ...styles.appTitle, fontSize: size, ...(style ?? {}) }}>
+    <Text
+      style={{ ...styles.appTitle, fontSize: size, ...(style ?? {}) }}
+      numberOfLines={1}
+      ellipsizeMode="tail"
+    >
       {children}
     </Text>
   );
