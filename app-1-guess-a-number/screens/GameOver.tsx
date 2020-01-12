@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import AppText from "../components/AppText";
-import AppTitle from "../components/AppTitle";
+import AppTitle, { AppTitleSize } from "../components/AppTitle";
 import Card from "../components/Card";
 import MainButton from "../components/MainButton";
 
@@ -29,21 +29,29 @@ const GameOverScreen: React.FC<Props> = ({
   return (
     <View style={styles.screen}>
       <Card style={styles.card}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.cardInnerContent}>
+          <AppTitle
+            size={
+              Dimensions.get("window").width > 400
+                ? AppTitleSize.Large
+                : AppTitleSize.Small
+            }
+          >
+            Game is over
+          </AppTitle>
+          <View style={styles.imageContainer}>
+            <Image
+              resizeMode="cover"
+              // source={require("../assets/success.png")}
+              source={{
+                uri:
+                  "https://www.lirent.net/wp-content/uploads/2014/10/Android-Lollipop-wallpapers-p.png"
+              }}
+              fadeDuration={600}
+              style={styles.image}
+            />
+          </View>
           <View>
-            <AppTitle>Game is over</AppTitle>
-            <View style={styles.imageContainer}>
-              <Image
-                resizeMode="cover"
-                // source={require("../assets/success.png")}
-                source={{
-                  uri:
-                    "https://www.lirent.net/wp-content/uploads/2014/10/Android-Lollipop-wallpapers-p.png"
-                }}
-                fadeDuration={600}
-                style={styles.image}
-              />
-            </View>
             <AppText style={styles.text}>
               Your number was{" "}
               <Text style={styles.highlightedText}>{guessedNumber}</Text>.
@@ -52,9 +60,9 @@ const GameOverScreen: React.FC<Props> = ({
               It took <Text style={styles.highlightedText}>{guessesCount}</Text>{" "}
               rounds to guess.
             </AppText>
-            <View style={styles.buttonContainer}>
-              <MainButton onPress={onNewGame}>new game</MainButton>
-            </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <MainButton onPress={onNewGame}>new game</MainButton>
           </View>
         </ScrollView>
       </Card>
@@ -76,6 +84,10 @@ const styles = StyleSheet.create({
           paddingVertical: 8
         }
       : {})
+  },
+  cardInnerContent: {
+    flexGrow: 1,
+    justifyContent: "space-between"
   },
   imageContainer: {
     width: Math.floor(Dimensions.get("window").width * 0.7),
