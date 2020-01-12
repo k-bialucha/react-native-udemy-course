@@ -112,7 +112,7 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
         </MainButton>
       </Card>
       <View style={styles.list}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.listInnerContent}>
           {guessesHistory.map((guess, index) => (
             <Card key={guess} style={styles.listCard}>
               <View style={styles.listItem}>
@@ -143,6 +143,12 @@ const styles = StyleSheet.create({
     width: "60%",
     minWidth: 140,
     padding: 12
+  },
+  listInnerContent: {
+    flexGrow: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    padding: 10
   },
   listCard: {
     width: "100%"
