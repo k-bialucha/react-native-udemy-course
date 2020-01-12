@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, StyleSheet, View, ScrollView } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  View /* ScrollView */
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../components/AppText";
@@ -112,7 +117,7 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
         </MainButton>
       </Card>
       <View style={styles.list}>
-        <ScrollView contentContainerStyle={styles.listInnerContent}>
+        {/* <ScrollView contentContainerStyle={styles.listInnerContent}>
           {guessesHistory.map((guess, index) => (
             <Card key={guess} style={styles.listCard}>
               <View style={styles.listItem}>
@@ -121,7 +126,20 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
               </View>
             </Card>
           ))}
-        </ScrollView>
+        </ScrollView> */}
+        <FlatList
+          data={guessesHistory}
+          renderItem={itemData => (
+            <Card style={styles.listCard}>
+              <View style={styles.listItem}>
+                <AppText>#{guessesHistory.length - itemData.index}</AppText>
+                <AppText style={styles.listItemText}>{itemData.item}</AppText>
+              </View>
+            </Card>
+          )}
+          contentContainerStyle={styles.listInnerContent}
+          keyExtractor={item => `${item}`}
+        />
       </View>
     </View>
   );
@@ -148,7 +166,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    padding: 10
+    padding: 15
   },
   listCard: {
     width: "100%"
