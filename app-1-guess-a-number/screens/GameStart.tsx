@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Alert,
   Button,
+  Dimensions,
   Keyboard,
   StyleSheet,
   Text,
@@ -123,14 +124,15 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-    padding: 10
+    padding: Dimensions.get("window").width > 400 ? 10 : 2
   },
   title: {
     marginVertical: 10
   },
   card: {
-    width: 300,
-    maxWidth: "80%",
+    minWidth: 240,
+    width: "90%",
+    maxWidth: 360,
     alignItems: "center"
   },
   input: {
@@ -141,12 +143,13 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "space-between"
+    justifyContent: "space-around"
   },
   button: {
     flexGrow: 1,
-    width: "40%",
-    marginHorizontal: 10
+    width: Dimensions.get("screen").width * 0.2,
+    maxWidth: 160,
+    marginHorizontal: 5
   },
   summaryContainer: {
     marginVertical: 20,
