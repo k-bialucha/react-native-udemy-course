@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import AppText from "../components/AppText";
@@ -33,10 +33,14 @@ const generateRandomNumber = (
 };
 
 const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
-  const [numberGuess, setNumberGuess] = useState<number>(
+  const initialGuess = useRef<number>(
     generateRandomNumber(1, 100, [userChoice])
   );
-  const [guessesHistory, setGuessesHistory] = useState<number[]>([]);
+
+  const [numberGuess, setNumberGuess] = useState<number>(initialGuess.current);
+  const [guessesHistory, setGuessesHistory] = useState<number[]>([
+    initialGuess.current
+  ]);
 
   const lowerBound = useRef<number>(1);
   const upperBound = useRef<number>(100);
@@ -72,7 +76,6 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
       <NumberContainer number={numberGuess} />
       <View>
         <AppText>Guesses: {guessesHistory.length}</AppText>
-        <AppText>Guesses list: {JSON.stringify(guessesHistory)}</AppText>
       </View>
       <Card style={styles.buttonsCard}>
         <MainButton
@@ -105,6 +108,15 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
         >
           <Ionicons name="md-arrow-round-up" size={24} color="white" />
         </MainButton>
+      </Card>
+      <Card>
+        <ScrollView>
+          {guessesHistory.map(guess => (
+            <View key={guess}>
+              <AppText>{guess}</AppText>
+            </View>
+          ))}
+        </ScrollView>
       </Card>
     </View>
   );
