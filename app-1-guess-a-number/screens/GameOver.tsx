@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 
 import AppText from "../components/AppText";
 import AppTitle from "../components/AppTitle";
@@ -22,32 +29,34 @@ const GameOverScreen: React.FC<Props> = ({
   return (
     <View style={styles.screen}>
       <Card style={styles.card}>
-        <View>
-          <AppTitle>Game is over</AppTitle>
-          <View style={styles.imageContainer}>
-            <Image
-              resizeMode="cover"
-              // source={require("../assets/success.png")}
-              source={{
-                uri:
-                  "https://www.lirent.net/wp-content/uploads/2014/10/Android-Lollipop-wallpapers-p.png"
-              }}
-              fadeDuration={600}
-              style={styles.image}
-            />
+        <ScrollView>
+          <View>
+            <AppTitle>Game is over</AppTitle>
+            <View style={styles.imageContainer}>
+              <Image
+                resizeMode="cover"
+                // source={require("../assets/success.png")}
+                source={{
+                  uri:
+                    "https://www.lirent.net/wp-content/uploads/2014/10/Android-Lollipop-wallpapers-p.png"
+                }}
+                fadeDuration={600}
+                style={styles.image}
+              />
+            </View>
+            <AppText style={styles.text}>
+              Your number was{" "}
+              <Text style={styles.highlightedText}>{guessedNumber}</Text>.
+            </AppText>
+            <AppText style={styles.text}>
+              It took <Text style={styles.highlightedText}>{guessesCount}</Text>{" "}
+              rounds to guess.
+            </AppText>
+            <View style={styles.buttonContainer}>
+              <MainButton onPress={onNewGame}>new game</MainButton>
+            </View>
           </View>
-          <AppText style={styles.text}>
-            Your number was{" "}
-            <Text style={styles.highlightedText}>{guessedNumber}</Text>.
-          </AppText>
-          <AppText style={styles.text}>
-            It took <Text style={styles.highlightedText}>{guessesCount}</Text>{" "}
-            rounds to guess.
-          </AppText>
-          <View style={styles.buttonContainer}>
-            <MainButton onPress={onNewGame}>new game</MainButton>
-          </View>
-        </View>
+        </ScrollView>
       </Card>
     </View>
   );
@@ -56,27 +65,34 @@ const GameOverScreen: React.FC<Props> = ({
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: "center",
-    padding: 20
+    padding: Dimensions.get("window").width > 400 ? 20 : 5
   },
   card: {
-    marginBottom: 80
+    marginBottom: 80,
+    height: Math.floor(Dimensions.get("window").height * 0.75),
+    ...(Dimensions.get("window").width <= 400
+      ? {
+          paddingHorizontal: 6,
+          paddingVertical: 8
+        }
+      : {})
   },
   imageContainer: {
-    width: "100%",
-    height: 300,
-    marginVertical: 15,
-    borderRadius: 50,
+    width: Math.floor(Dimensions.get("window").width * 0.7),
+    height: Math.floor(Dimensions.get("window").width * 0.7),
+    marginVertical: Dimensions.get("window").width > 400 ? 15 : 5,
+    borderRadius: Math.floor(Dimensions.get("window").width * 0.1),
     borderColor: AppTheme.accent,
-    borderWidth: 5,
-    overflow: "hidden"
+    borderWidth: Dimensions.get("window").width > 400 ? 6 : 4,
+    overflow: "hidden",
+    alignSelf: "center"
   },
   image: {
     width: "100%",
     height: "100%"
   },
   text: {
-    fontSize: 22,
+    fontSize: Dimensions.get("window").width > 400 ? 26 : 18,
     textAlign: "center"
   },
   highlightedText: {
