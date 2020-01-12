@@ -80,42 +80,44 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
 
   return (
     <View style={styles.screen}>
-      <AppTitle size={AppTitleSize.Small}>My guess is:</AppTitle>
-      <NumberContainer number={numberGuess} />
-      <View>
+      <Card>
+        <AppTitle size={AppTitleSize.Small}>My guess is:</AppTitle>
+        <View style={styles.mainNavigation}>
+          <MainButton
+            onPress={() => {
+              const isUserTruthful: boolean = userChoice < numberGuess;
+
+              if (!isUserTruthful) {
+                showFoolingAlert();
+                return;
+              }
+
+              upperBound.current = numberGuess;
+              updateGuess();
+            }}
+          >
+            <Ionicons name="md-arrow-round-down" size={24} color="white" />
+          </MainButton>
+          <View style={styles.numberContainer}>
+            <NumberContainer number={numberGuess} />
+          </View>
+          <MainButton
+            onPress={() => {
+              const isUserTrustworthy: boolean = userChoice > numberGuess;
+
+              if (!isUserTrustworthy) {
+                showFoolingAlert();
+                return;
+              }
+
+              lowerBound.current = numberGuess;
+              updateGuess();
+            }}
+          >
+            <Ionicons name="md-arrow-round-up" size={24} color="white" />
+          </MainButton>
+        </View>
         <AppText>Guesses: {guessesHistory.length}</AppText>
-      </View>
-      <Card style={styles.buttonsCard}>
-        <MainButton
-          onPress={() => {
-            const isUserTruthful: boolean = userChoice < numberGuess;
-
-            if (!isUserTruthful) {
-              showFoolingAlert();
-              return;
-            }
-
-            upperBound.current = numberGuess;
-            updateGuess();
-          }}
-        >
-          <Ionicons name="md-arrow-round-down" size={24} color="white" />
-        </MainButton>
-        <MainButton
-          onPress={() => {
-            const isUserTrustworthy: boolean = userChoice > numberGuess;
-
-            if (!isUserTrustworthy) {
-              showFoolingAlert();
-              return;
-            }
-
-            lowerBound.current = numberGuess;
-            updateGuess();
-          }}
-        >
-          <Ionicons name="md-arrow-round-up" size={24} color="white" />
-        </MainButton>
       </Card>
       <View style={styles.list}>
         {/* <ScrollView contentContainerStyle={styles.listInnerContent}>
@@ -152,10 +154,15 @@ const styles = StyleSheet.create({
     padding: Dimensions.get("screen").width > 400 ? 24 : 6,
     alignItems: "center"
   },
-  buttonsCard: {
+  mainNavigation: {
     alignSelf: "stretch",
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginVertical: Dimensions.get("screen").height > 600 ? 20 : 10
+  },
+  numberContainer: {
+    marginHorizontal: 15
   },
   list: {
     flex: 1,
