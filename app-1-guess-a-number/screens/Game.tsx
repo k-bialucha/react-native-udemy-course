@@ -36,7 +36,7 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
   const [numberGuess, setNumberGuess] = useState<number>(
     generateRandomNumber(1, 100, [userChoice])
   );
-  const [guessesCount, setGuessesCount] = useState(1);
+  const [guessesHistory, setGuessesHistory] = useState<number[]>([]);
 
   const lowerBound = useRef<number>(1);
   const upperBound = useRef<number>(100);
@@ -45,15 +45,16 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
     const nextGuess: number = generateRandomNumber(
       lowerBound.current,
       upperBound.current,
-      []
+      guessesHistory
     );
-    setGuessesCount(guessesCount => guessesCount + 1);
+
+    setGuessesHistory(guessesList => [nextGuess, ...guessesList]);
     setNumberGuess(nextGuess);
   };
 
   useEffect(() => {
     if (numberGuess === userChoice) {
-      onGameEnd(guessesCount);
+      onGameEnd(guessesHistory.length);
     }
   }, [userChoice, numberGuess, onGameEnd]);
 
@@ -70,7 +71,8 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
       <AppTitle size={AppTitleSize.Small}>My guess is:</AppTitle>
       <NumberContainer number={numberGuess} />
       <View>
-        <AppText>Guesses: {guessesCount}</AppText>
+        <AppText>Guesses: {guessesHistory.length}</AppText>
+        <AppText>Guesses list: {JSON.stringify(guessesHistory)}</AppText>
       </View>
       <Card style={styles.buttonsCard}>
         <MainButton
