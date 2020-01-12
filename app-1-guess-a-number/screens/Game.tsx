@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
+  Dimensions,
   FlatList,
   StyleSheet,
   View /* ScrollView */
@@ -148,7 +149,7 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 10,
+    padding: Dimensions.get("screen").width > 400 ? 24 : 6,
     alignItems: "center"
   },
   buttonsCard: {
@@ -158,23 +159,23 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    width: "60%",
+    width: "70%",
     minWidth: 140,
-    padding: 12
+    padding: 18
   },
   listInnerContent: {
     flexGrow: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    padding: 15
+    padding: 20
   },
   listCard: {
-    width: "100%"
+    width: "100%",
+    paddingHorizontal: Dimensions.get("screen").width > 400 ? 20 : 5
   },
   listItem: {
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingHorizontal: 10,
     width: "100%"
   },
   listItemText: {
