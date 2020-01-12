@@ -8,6 +8,8 @@ import Card from "../components/Card";
 import MainButton from "../components/MainButton";
 import NumberContainer from "../components/NumberContainer";
 
+import AppTheme from "../AppTheme";
+
 interface Props {
   userChoice: number;
   onGameEnd: (roundCount: number, ...args: number[]) => void;
@@ -109,15 +111,18 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
           <Ionicons name="md-arrow-round-up" size={24} color="white" />
         </MainButton>
       </Card>
-      <Card>
+      <View style={styles.list}>
         <ScrollView>
-          {guessesHistory.map(guess => (
-            <View key={guess}>
-              <AppText>{guess}</AppText>
-            </View>
+          {guessesHistory.map((guess, index) => (
+            <Card key={guess} style={styles.listCard}>
+              <View style={styles.listItem}>
+                <AppText>#{guessesHistory.length - index}</AppText>
+                <AppText style={styles.listItemText}>{guess}</AppText>
+              </View>
+            </Card>
           ))}
         </ScrollView>
-      </Card>
+      </View>
     </View>
   );
 };
@@ -132,6 +137,25 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     flexDirection: "row",
     justifyContent: "space-around"
+  },
+  list: {
+    flex: 1,
+    width: "60%",
+    minWidth: 140,
+    padding: 12
+  },
+  listCard: {
+    width: "100%"
+  },
+  listItem: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    paddingHorizontal: 10,
+    width: "100%"
+  },
+  listItemText: {
+    color: AppTheme.accent,
+    fontFamily: "poppins-bold"
   }
 });
 
