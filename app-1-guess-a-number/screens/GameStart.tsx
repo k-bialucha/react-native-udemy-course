@@ -88,14 +88,24 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
                 blurOnSubmit
               />
               <View style={styles.buttonContainer}>
-                <View style={styles.button}>
+                <View
+                  style={{
+                    ...styles.button,
+                    width: Dimensions.get("screen").width * 0.2
+                  }}
+                >
                   <Button
                     title="Reset"
                     onPress={handleNumberReset}
                     color={AppTheme.accent}
                   />
                 </View>
-                <View style={styles.button}>
+                <View
+                  style={{
+                    ...styles.button,
+                    width: Dimensions.get("screen").width * 0.2
+                  }}
+                >
                   <Button
                     title="Confirm"
                     onPress={handleConfirmation}
@@ -139,8 +149,9 @@ const styles = StyleSheet.create({
   card: {
     minWidth: 240,
     width: "90%",
-    maxWidth: 360,
-    alignItems: "center"
+    maxWidth: Dimensions.get("screen").width > 600 ? 500 : 360,
+    alignItems: "center",
+    borderWidth: 5
   },
   input: {
     width: 120,
@@ -155,7 +166,7 @@ const styles = StyleSheet.create({
   button: {
     flexGrow: 1,
     width: Dimensions.get("screen").width * 0.2,
-    maxWidth: 160,
+    maxWidth: Dimensions.get("screen").width > 600 ? 220 : 160,
     marginHorizontal: 5
   },
   summaryContainer: {
