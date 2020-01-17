@@ -4,6 +4,8 @@ import {
   Button,
   Dimensions,
   Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
@@ -65,58 +67,62 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
   };
 
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-      }}
-    >
-      <View style={styles.screen}>
-        <AppText>Start a New Game</AppText>
-        <Card style={styles.card}>
-          <AppTitle style={styles.title}>Select a Number</AppTitle>
-          <Input
-            value={inputValue}
-            onChangeText={handleNumberChange}
-            style={styles.input}
-            autoCorrect={false}
-            keyboardType="number-pad"
-            maxLength={2}
-            blurOnSubmit
-          />
-          <View style={styles.buttonContainer}>
-            <View style={styles.button}>
-              <Button
-                title="Reset"
-                onPress={handleNumberReset}
-                color={AppTheme.accent}
+    <ScrollView>
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
+        >
+          <View style={styles.screen}>
+            <AppText>Start a New Game</AppText>
+            <Card style={styles.card}>
+              <AppTitle style={styles.title}>Select a Number</AppTitle>
+              <Input
+                value={inputValue}
+                onChangeText={handleNumberChange}
+                style={styles.input}
+                autoCorrect={false}
+                keyboardType="number-pad"
+                maxLength={2}
+                blurOnSubmit
               />
-            </View>
-            <View style={styles.button}>
-              <Button
-                title="Confirm"
-                onPress={handleConfirmation}
-                color={AppTheme.primary}
-              />
-            </View>
+              <View style={styles.buttonContainer}>
+                <View style={styles.button}>
+                  <Button
+                    title="Reset"
+                    onPress={handleNumberReset}
+                    color={AppTheme.accent}
+                  />
+                </View>
+                <View style={styles.button}>
+                  <Button
+                    title="Confirm"
+                    onPress={handleConfirmation}
+                    color={AppTheme.primary}
+                  />
+                </View>
+              </View>
+            </Card>
+            {isConfirmed && (
+              <Card style={styles.summaryContainer}>
+                <Text style={styles.title}>Chosen number:</Text>
+                <NumberContainer number={number}></NumberContainer>
+                <View style={styles.startGameButtonContainer}>
+                  <MainButton
+                    onPress={() => {
+                      onGameStart(number);
+                    }}
+                  >
+                    start game
+                  </MainButton>
+                </View>
+              </Card>
+            )}
           </View>
-        </Card>
-        {isConfirmed && (
-          <Card style={styles.summaryContainer}>
-            <Text style={styles.title}>Chosen number:</Text>
-            <NumberContainer number={number}></NumberContainer>
-            <View style={styles.startGameButtonContainer}>
-              <MainButton
-                onPress={() => {
-                  onGameStart(number);
-                }}
-              >
-                start game
-              </MainButton>
-            </View>
-          </Card>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
