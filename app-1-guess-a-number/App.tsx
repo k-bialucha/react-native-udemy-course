@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { AppLoading } from "expo";
+import { AppLoading, ScreenOrientation } from "expo";
 import * as Font from "expo-font";
 
 import Game from "./screens/Game";
 import GameOverScreen from "./screens/GameOver";
 import GameStart from "./screens/GameStart";
 import Header from "./components/Header";
+import { Orientation } from "expo/build/ScreenOrientation/ScreenOrientation";
 
 const fetchFont = () => {
   return Font.loadAsync({
@@ -26,6 +27,13 @@ export default function App() {
   const [initialLoadingDone, setInitialLoadingDone] = useState<boolean>(false);
   const [userChoice, setUserChoice] = useState<number>(null);
   const [guessesCount, setGuessesCount] = useState<number>(null);
+
+  const doSth = async () => {
+    const orientation = await ScreenOrientation.getOrientationAsync();
+    console.warn("got orientation", orientation.orientation);
+  };
+
+  doSth();
 
   if (!initialLoadingDone) {
     return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Alert,
   Button,
@@ -33,6 +33,20 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
   );
   const [number, setNumber] = useState<number>(null);
   const [isConfirmed, setIsConfirmed] = useState<boolean>(false);
+  const [buttonWidth, setButtonWidth] = useState(
+    Dimensions.get("screen").width * 0.2
+  );
+
+  const updateButtonWidth = () => {
+    setButtonWidth(Dimensions.get("screen").width * 0.2);
+  };
+
+  useEffect(() => {
+    Dimensions.addEventListener("change", updateButtonWidth);
+    return () => {
+      Dimensions.removeEventListener("change", updateButtonWidth);
+    };
+  }, []);
 
   const handleNumberChange = (inputValue: string) => {
     const inputSanitized: string = inputValue.replace(/[^0-9]/, "");
@@ -91,7 +105,7 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
                 <View
                   style={{
                     ...styles.button,
-                    width: Dimensions.get("screen").width * 0.2
+                    width: buttonWidth
                   }}
                 >
                   <Button
@@ -103,7 +117,7 @@ const GameStart: React.FC<Props> = ({ onGameStart }) => {
                 <View
                   style={{
                     ...styles.button,
-                    width: Dimensions.get("screen").width * 0.2
+                    width: buttonWidth
                   }}
                 >
                   <Button
