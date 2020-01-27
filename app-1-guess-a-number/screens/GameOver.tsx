@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -26,9 +26,30 @@ const GameOverScreen: React.FC<Props> = ({
   guessedNumber,
   onNewGame
 }) => {
+  const [cardHeight, setCardHeight] = useState<number>(
+    Dimensions.get("window").height * 0.75
+  );
+  const [screenPadding, setScreenPadding] = useState(
+    Dimensions.get("window").width > 400 ? 20 : 5
+  );
+
+  const updateCardHeight = () => {
+    const { width, height } = Dimensions.get("window");
+    const isLandscape = width > height;
+
+    setCardHeight(height * (isLandscape ? 0.6 : 0.75));
+    setScreenPadding(width > (isLandscape ? 600 : 400) ? 20 : 5);
+  };
+
+  useEffect(() => {
+    Dimensions.addEventListener("change", updateCardHeight);
+    return () => {
+      Dimensions.removeEventListener("change", updateCardHeight);
+    };
+  }, []);
   return (
-    <View style={styles.screen}>
-      <Card style={styles.card}>
+    <View style={{ ...styles.screen, padding: screenPadding }}>
+      <Card style={{ ...styles.card, height: cardHeight }}>
         <ScrollView contentContainerStyle={styles.cardInnerContent}>
           <AppTitle
             size={
@@ -72,12 +93,10 @@ const GameOverScreen: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    padding: Dimensions.get("window").width > 400 ? 20 : 5
+    flex: 1
   },
   card: {
     marginBottom: 80,
-    height: Math.floor(Dimensions.get("window").height * 0.75),
     ...(Dimensions.get("window").width <= 400
       ? {
           paddingHorizontal: 6,
