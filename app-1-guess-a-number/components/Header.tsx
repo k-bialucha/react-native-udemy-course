@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 
 import AppTheme from "../AppTheme";
 
@@ -17,17 +17,18 @@ const Header: React.FC<Props> = ({ title }) => {
 
 const styles = StyleSheet.create({
   container: {
+    justifyContent: "flex-end",
     width: "100%",
     height: 80,
     paddingTop: 30,
     paddingBottom: 5,
     paddingHorizontal: 10,
-
-    backgroundColor: AppTheme.primary,
-    justifyContent: "flex-end"
+    backgroundColor: Platform.OS === "ios" ? "white" : AppTheme.primary,
+    borderBottomColor: Platform.OS === "ios" ? AppTheme.accent : "transparent",
+    borderBottomWidth: 2
   },
   title: {
-    color: "white",
+    color: Platform.OS === "ios" ? AppTheme.primary : "white",
     fontSize: 32
   }
 });
