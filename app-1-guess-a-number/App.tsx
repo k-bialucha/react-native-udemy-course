@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { AppLoading, ScreenOrientation } from "expo";
+import { AppLoading } from "expo";
 import * as Font from "expo-font";
 
 import Game from "./screens/Game";
 import GameOverScreen from "./screens/GameOver";
 import GameStart from "./screens/GameStart";
 import Header from "./components/Header";
-import { Orientation } from "expo/build/ScreenOrientation/ScreenOrientation";
 
 const fetchFont = () => {
   return Font.loadAsync({
