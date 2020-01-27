@@ -9,7 +9,15 @@ interface Props {
 
 const Header: React.FC<Props> = ({ title }) => {
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        ...Platform.select({
+          ios: styles.containerIos,
+          android: styles.containerAndroid
+        })
+      }}
+    >
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -23,9 +31,15 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 5,
     paddingHorizontal: 10,
-    backgroundColor: Platform.OS === "ios" ? "white" : AppTheme.primary,
-    borderBottomColor: Platform.OS === "ios" ? AppTheme.accent : "transparent",
     borderBottomWidth: 2
+  },
+  containerIos: {
+    backgroundColor: "white",
+    borderBottomColor: AppTheme.accent
+  },
+  containerAndroid: {
+    backgroundColor: AppTheme.primary,
+    borderBottomColor: "transparent"
   },
   title: {
     color: Platform.OS === "ios" ? AppTheme.primary : "white",

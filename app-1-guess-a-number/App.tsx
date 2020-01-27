@@ -28,13 +28,6 @@ export default function App() {
   const [userChoice, setUserChoice] = useState<number>(null);
   const [guessesCount, setGuessesCount] = useState<number>(null);
 
-  const doSth = async () => {
-    const orientation = await ScreenOrientation.getOrientationAsync();
-    console.warn("got orientation", orientation.orientation);
-  };
-
-  doSth();
-
   if (!initialLoadingDone) {
     return (
       <AppLoading
