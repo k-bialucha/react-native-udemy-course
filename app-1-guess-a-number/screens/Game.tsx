@@ -78,8 +78,26 @@ const GameScreen: React.FC<Props> = ({ userChoice, onGameEnd }) => {
     );
   };
 
+  const orientationChangeHandler = () => {
+    const { width, height } = Dimensions.get("window");
+    const isLandscape = width > height;
+    setIsLandscape(isLandscape);
+  };
+  const { width, height } = Dimensions.get("window");
+  const initialIsLandscape: boolean = width > height;
+  const [isLandscape, setIsLandscape] = useState<boolean>(initialIsLandscape);
+
+  useEffect(() => {
+    Dimensions.addEventListener("change", orientationChangeHandler);
+    return () => {
+      Dimensions.removeEventListener("change", orientationChangeHandler);
+    };
+  }, []);
+
   return (
-    <View style={styles.screen}>
+    <View
+      style={{ ...styles.screen, ...(isLandscape && styles.screenLandscape) }}
+    >
       <Card>
         <AppTitle size={AppTitleSize.Small}>My guess is:</AppTitle>
         <View style={styles.mainNavigation}>
@@ -153,6 +171,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: Dimensions.get("screen").width > 400 ? 24 : 6,
     alignItems: "center"
+  },
+  screenLandscape: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: Dimensions.get("screen").width > 600 ? 24 : 6
   },
   mainNavigation: {
     alignSelf: "stretch",
