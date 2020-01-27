@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  TouchableNativeFeedback,
+  View
+} from "react-native";
 
 import AppText from "./AppText";
 
@@ -10,12 +17,18 @@ interface Props {
 }
 
 const MainButton: React.FC<Props> = ({ children, onPress }) => {
+  let ContainerComponent: React.ComponentType<TouchableOpacityProps> = TouchableOpacity;
+
+  if (Platform.OS === "android" && Platform.Version >= 21) {
+    ContainerComponent = TouchableNativeFeedback;
+  }
+
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+    <ContainerComponent activeOpacity={0.7} onPress={onPress}>
       <View style={styles.button}>
         <AppText style={styles.buttonText}>{children}</AppText>
       </View>
-    </TouchableOpacity>
+    </ContainerComponent>
   );
 };
 
