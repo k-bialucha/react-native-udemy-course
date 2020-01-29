@@ -164,8 +164,7 @@ const styles = StyleSheet.create({
     minWidth: 240,
     width: "90%",
     maxWidth: Dimensions.get("screen").width > 600 ? 500 : 360,
-    alignItems: "center",
-    borderWidth: 5
+    alignItems: "center"
   },
   input: {
     width: 120,

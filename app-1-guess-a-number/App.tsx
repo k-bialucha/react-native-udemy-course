@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
@@ -8,6 +8,8 @@ import Game from "./screens/Game";
 import GameOverScreen from "./screens/GameOver";
 import GameStart from "./screens/GameStart";
 import Header from "./components/Header";
+
+import SafeAreaAndroid from "./SafeAreaAndroid";
 
 const fetchFont = () => {
   return Font.loadAsync({
@@ -64,7 +66,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaView
+      style={{ ...styles.screen, ...SafeAreaAndroid.SafeAreaAndroid }}
+    >
       <Header title="Guess a Number" />
       {screen === Screen.GameStart && (
         <GameStart onGameStart={gameStartHandler} />
@@ -79,7 +83,7 @@ export default function App() {
           onNewGame={newGameHandler}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
