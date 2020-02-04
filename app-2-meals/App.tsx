@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 
-const loadFonts = () => {
+const fetchFonts = () => {
   return Font.loadAsync({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+    poppins: require('./assets/fonts/Poppins-Regular.ttf'),
+    'poppins-bold': require('./assets/fonts/Poppins-Bold.ttf'),
   });
 };
 
@@ -16,8 +16,11 @@ export default function App() {
   if (!isAppLoaded)
     return (
       <AppLoading
-        startAsync={loadFonts}
-        onFinish={() => setIsAppLoaded(false)}
+        startAsync={fetchFonts}
+        onFinish={() => setIsAppLoaded(true)}
+        onError={(err: Error) => {
+          console.warn('something failed!');
+        }}
       />
     );
   return (
