@@ -3,6 +3,8 @@ import { View, Text } from 'react-native';
 
 interface Props {}
 
+export const MEAL_DETAILS_SCREEN_NAME = 'mealDetails';
+
 const MealDetailScreen: React.FC<Props> = () => {
   return (
     <View>
