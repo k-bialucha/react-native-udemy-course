@@ -1,14 +1,23 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import { NavigationStackProp } from 'react-navigation-stack';
 
-interface Props {}
+interface Props {
+  navigation: NavigationStackProp<{}>;
+}
 
 export const MEAL_DETAILS_SCREEN_NAME = 'mealDetails';
 
-const MealDetailScreen: React.FC<Props> = () => {
+const MealDetailScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View>
       <Text>Meal Detail</Text>
+      <Button
+        title="Go to Main Screen"
+        onPress={() => {
+          navigation.popToTop();
+        }}
+      />
     </View>
   );
 };
