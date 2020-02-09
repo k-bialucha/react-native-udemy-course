@@ -1,15 +1,11 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-
-import {
-  NavigationParams,
-  NavigationScreenProp,
-  NavigationState,
-} from 'react-navigation';
+import { NavigationStackProp } from 'react-navigation-stack';
 
 import { CATEGORY_MEALS_SCREEN_NAME } from './CategoryMeals';
+
 interface Props {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+  navigation: NavigationStackProp<{}>;
 }
 
 export const CATEGORIES_SCREEN_NAME = 'categories';
