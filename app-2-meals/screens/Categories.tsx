@@ -5,7 +5,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import CategoryItem from '../components/CategoryItem';
 import categories from '../data/categories';
 
-// import { CATEGORY_MEALS_SCREEN_NAME } from './CategoryMeals';
+import { CATEGORY_MEALS_SCREEN_NAME } from './CategoryMeals';
 
 interface Props {
   navigation: NavigationStackProp<{}>;
@@ -13,15 +13,17 @@ interface Props {
 
 export const CATEGORIES_SCREEN_NAME = 'categories';
 
-const CategoriesScreen: React.FC<Props> = props => {
+const CategoriesScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.screen}>
-      <Text>Categories</Text>
       <FlatList
         data={categories}
         renderItem={item => (
           <CategoryItem
             title={item.item.title}
+            onPress={() => {
+              navigation.navigate(CATEGORY_MEALS_SCREEN_NAME);
+            }}
             style={{ ...styles.listItem, backgroundColor: item.item.color }}
           />
         )}
@@ -37,6 +39,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 2,
+    paddingVertical: 16,
   },
   list: {
     flex: 1,
@@ -45,7 +49,8 @@ const styles = StyleSheet.create({
   listItem: {
     flex: 1,
     height: 150,
-    margin: 15,
+    marginHorizontal: 4,
+    marginVertical: 3,
   },
 });
 
