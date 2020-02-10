@@ -29,7 +29,9 @@ const CategoriesScreen: React.FC<Props> & {
           <CategoryItem
             title={item.item.title}
             onPress={() => {
-              navigation.navigate(CATEGORY_MEALS_SCREEN_NAME);
+              navigation.navigate(CATEGORY_MEALS_SCREEN_NAME, {
+                categoryId: item.item.id,
+              });
             }}
             style={{ ...styles.listItem, backgroundColor: item.item.color }}
           />
