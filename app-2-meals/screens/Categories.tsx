@@ -45,10 +45,6 @@ const CategoriesScreen: React.FC<Props> & {
 
 CategoriesScreen.navigationOptions = {
   headerTitle: 'Meal Categories',
-  headerStyle: {
-    backgroundColor: Platform.OS === 'android' ? AppTheme.primary : null,
-  },
-  headerTintColor: Platform.OS === 'android' ? 'white' : AppTheme.primary,
 };
 
 const styles = StyleSheet.create({

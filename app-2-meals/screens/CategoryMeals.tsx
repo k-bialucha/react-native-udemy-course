@@ -40,7 +40,7 @@ CategoryMealsScreen.navigationOptions = ({ navigation }) => {
   );
 
   return {
-    title: title.toUpperCase(),
+    headerTitle: title.toUpperCase(),
     headerStyle: {
       backgroundColor: Platform.OS === 'android' ? color : null,
     },
