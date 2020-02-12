@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { enableScreens } from 'react-native-screens';
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
+
 import NavigationContainer from './NavigationContainer';
+
+enableScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({
