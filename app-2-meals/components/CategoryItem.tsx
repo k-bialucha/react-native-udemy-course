@@ -1,6 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, ViewStyle } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+  ViewStyle,
+} from 'react-native';
+
+const supportTouchableNativeFeedback: boolean =
+  Platform.OS === 'android' && Platform.Version >= 21;
+
+const TouchableComponent: React.ComponentType<TouchableOpacityProps> = supportTouchableNativeFeedback
+  ? TouchableNativeFeedback
+  : TouchableOpacity;
 
 interface Props {
   title: string;
@@ -17,11 +32,11 @@ const CategoryItem: React.FC<Props> = ({
 }) => {
   return (
     <View style={{ ...styles.main, ...style }}>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableComponent onPress={onPress}>
         <View style={{ ...styles.tile, backgroundColor: color }}>
           <Text style={styles.title}>{title}</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableComponent>
     </View>
   );
 };
