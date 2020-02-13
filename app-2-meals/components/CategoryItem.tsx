@@ -4,15 +4,21 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface Props {
   title: string;
+  color: string;
   style?: ViewStyle;
   onPress: (...args: any[]) => any;
 }
 
-const CategoryItem: React.FC<Props> = ({ title, style = {}, onPress }) => {
+const CategoryItem: React.FC<Props> = ({
+  title,
+  style = {},
+  color,
+  onPress,
+}) => {
   return (
     <View style={{ ...styles.main, ...style }}>
       <TouchableOpacity onPress={onPress}>
-        <View style={styles.tile}>
+        <View style={{ ...styles.tile, backgroundColor: color }}>
           <Text style={styles.title}>{title}</Text>
         </View>
       </TouchableOpacity>
@@ -23,6 +29,7 @@ const CategoryItem: React.FC<Props> = ({ title, style = {}, onPress }) => {
 const styles = StyleSheet.create({
   main: {
     borderRadius: 16,
+    overflow: 'hidden',
   },
   tile: {
     width: '100%',

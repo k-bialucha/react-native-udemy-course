@@ -33,7 +33,8 @@ const CategoriesScreen: React.FC<Props> & {
                 categoryId: item.item.id,
               });
             }}
-            style={{ ...styles.listItem, backgroundColor: item.item.color }}
+            color={item.item.color}
+            style={styles.listItem}
           />
         )}
         numColumns={2}
