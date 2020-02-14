@@ -33,6 +33,9 @@ const CategoryMealsScreen: NavigationStackScreenComponent = ({
         renderItem={item => (
           <MealItem
             title={item.item.title}
+            duration={item.item.duration}
+            complexity={item.item.complexity}
+            affordability={item.item.affordability}
             style={{ backgroundColor: category.color }}
             onPress={() => {
               console.warn('Meal', item.item.title, 'pressed');
