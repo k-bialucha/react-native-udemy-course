@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View, Platform } from 'react-native';
+import { Button, FlatList, Platform, Text, View } from 'react-native';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 
 import Category from '../models/Category';
@@ -21,20 +21,24 @@ const CategoryMealsScreen: NavigationStackScreenComponent = ({
     category => category.id === categoryId
   );
 
-  const categoryMeals = meals
-    .filter((meal: Meal) => meal.categoryIds.includes(categoryId))
-    .map(
-      (meal: Meal) =>
-        `${meal.title} / ${meal.affordability} / ${meal.complexity}`
-    );
-  console.warn('meals ->>> xdd', categoryId);
+  const categoryMeals = meals.filter((meal: Meal) =>
+    meal.categoryIds.includes(categoryId)
+  );
+
   return (
     <View>
       <Text>Category Meals</Text>
       <Text>Selected: {category.title.toUpperCase()}</Text>
-      {categoryMeals.map(meal => (
-        <Text key={meal}>{meal}</Text>
-      ))}
+      <FlatList
+        data={categoryMeals}
+        keyExtractor={item => `${item.id}${item.isGlutenFree ? '-GF' : ''}`}
+        renderItem={item => (
+          <Text>
+            {item.item.title} / {item.item.affordability} /{' '}
+            {item.item.complexity}
+          </Text>
+        )}
+      />
       <Button
         title="Show details"
         onPress={() => {
