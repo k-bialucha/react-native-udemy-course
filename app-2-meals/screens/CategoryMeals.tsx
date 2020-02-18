@@ -36,6 +36,7 @@ const CategoryMealsScreen: NavigationStackScreenComponent = ({
             duration={item.item.duration}
             complexity={item.item.complexity}
             affordability={item.item.affordability}
+            imageUrl={item.item.imageUrl}
             style={{ backgroundColor: category.color }}
             onPress={() => {
               console.warn('Meal', item.item.title, 'pressed');

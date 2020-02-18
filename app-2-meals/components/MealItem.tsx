@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ImageBackground,
   Platform,
   StyleSheet,
   Text,
@@ -23,6 +24,7 @@ interface Props {
   duration: number;
   complexity: number;
   affordability: number;
+  imageUrl: string;
   style?: ViewStyle;
   onPress?: (...args: any[]) => any;
 }
@@ -32,6 +34,7 @@ const MealItem: React.FC<Props> = ({
   duration,
   complexity,
   affordability,
+  imageUrl,
   style = {},
   onPress,
 }) => {
@@ -40,7 +43,12 @@ const MealItem: React.FC<Props> = ({
       <TouchableComponent style={{ flex: 1 }} onPress={onPress}>
         <View>
           <View style={{ ...styles.row, ...styles.mealHeader }}>
-            <Text style={styles.title}>{title}</Text>
+            <ImageBackground
+              source={{ uri: imageUrl }}
+              style={styles.backgroundImage}
+            >
+              <Text style={styles.title}>{title}</Text>
+            </ImageBackground>
           </View>
           <View style={{ ...styles.row, ...styles.mealDetail }}>
             <Text>Time: {duration}m</Text>
@@ -55,18 +63,19 @@ const MealItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   main: {
-    minHeight: 160,
+    minHeight: 180,
     backgroundColor: AppTheme.accent,
-    borderRadius: 10,
     marginHorizontal: 10,
     marginVertical: 5,
-    padding: 10,
+    paddingBottom: 10,
+    borderRadius: 10,
+    overflow: 'hidden',
   },
   row: {
     flexDirection: 'row',
   },
   mealHeader: {
-    height: '75%',
+    height: '80%',
     justifyContent: 'center',
   },
   mealDetail: {
@@ -74,9 +83,17 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
   },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+  },
   title: {
+    fontFamily: 'poppins',
+    fontSize: 22,
     color: 'white',
-    fontSize: 24,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    backgroundColor: 'rgba(15, 15, 15, 0.4)',
   },
 });
 
