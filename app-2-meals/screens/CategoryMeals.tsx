@@ -39,7 +39,9 @@ const CategoryMealsScreen: NavigationStackScreenComponent = ({
             imageUrl={item.item.imageUrl}
             style={{ backgroundColor: category.color }}
             onPress={() => {
-              console.warn('Meal', item.item.title, 'pressed');
+              navigation.navigate(MEAL_DETAILS_SCREEN_NAME, {
+                id: item.item.id,
+              });
             }}
           />
         )}
