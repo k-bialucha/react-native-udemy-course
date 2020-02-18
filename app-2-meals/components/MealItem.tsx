@@ -47,13 +47,17 @@ const MealItem: React.FC<Props> = ({
               source={{ uri: imageUrl }}
               style={styles.backgroundImage}
             >
-              <Text style={styles.title}>{title}</Text>
+              <Text style={styles.title} numberOfLines={1}>
+                {title}
+              </Text>
             </ImageBackground>
           </View>
           <View style={{ ...styles.row, ...styles.mealDetail }}>
-            <Text>Time: {duration}m</Text>
-            <Text>Complexity: {complexity}</Text>
-            <Text>Affordability: {affordability}</Text>
+            <Text style={styles.detailText}>Time: {duration}m</Text>
+            <Text style={styles.detailText}>Complexity: {complexity}</Text>
+            <Text style={styles.detailText}>
+              Affordability: {affordability}
+            </Text>
           </View>
         </View>
       </TouchableComponent>
@@ -63,11 +67,10 @@ const MealItem: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   main: {
-    minHeight: 180,
+    height: 200,
     backgroundColor: AppTheme.accent,
     marginHorizontal: 10,
     marginVertical: 5,
-    paddingBottom: 10,
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -79,13 +82,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   mealDetail: {
+    height: '20%',
     justifyContent: 'space-between',
     paddingVertical: 5,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    alignItems: 'flex-end',
   },
   backgroundImage: {
     width: '100%',
     height: '100%',
+    justifyContent: 'flex-end',
   },
   title: {
     fontFamily: 'poppins',
@@ -94,6 +100,13 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 15,
     backgroundColor: 'rgba(15, 15, 15, 0.4)',
+  },
+  detailText: {
+    flex: 1,
+    fontFamily: 'poppins',
+    fontSize: 13,
+    color: 'white',
+    textAlign: 'center',
   },
 });
 
